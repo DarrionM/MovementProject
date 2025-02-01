@@ -49,8 +49,6 @@ function love.update(dt)
         player.y = player.y + player.speed
     end
 
-function width()
-    return 100
     -- update idle animation each frame using deltaTime (dt)
     player.animations.idle:update(dt) 
 end
