@@ -6,7 +6,7 @@ function love.load()
     player = {}
     player.x = 50
     player.y = 70
-    player.speed = 2
+    player.speed = 100
     player.spriteSheet = love.graphics.newImage('Sprites/spritesheet.png')
     player.grid = anim8.newGrid(32, 32, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
     player.animations = {}
@@ -25,7 +25,8 @@ function love.update(dt)
 
     -- normalize speed vector when moving in multiple directions by
     -- rearranging pythagorean theorem (x^2 + y^2 = diagonalMovement^2)
-    speed_diag = math.sqrt((player.speed ^ 2 ) / 2)
+    speed = player.speed * dt
+    speed_diag = math.sqrt((speed ^ 2 ) / 2)
 
     if right and up then
         player.x = player.x + speed_diag
@@ -40,13 +41,13 @@ function love.update(dt)
         player.x = player.x - speed_diag
         player.y = player.y + speed_diag
     elseif right then
-        player.x = player.x + player.speed
+        player.x = player.x + speed
     elseif left then
-        player.x = player.x - player.speed
+        player.x = player.x - speed
     elseif up then
-        player.y = player.y - player.speed
+        player.y = player.y - speed
     elseif down then
-        player.y = player.y + player.speed
+        player.y = player.y + speed
     end
 
     -- update idle animation each frame using deltaTime (dt)
